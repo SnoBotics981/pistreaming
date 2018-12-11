@@ -23,8 +23,15 @@ from ws4py.server.wsgiutils import WebSocketWSGIApplication
 
 ###########################################
 # CONFIGURATION
+
+# Rob changeing width, rate, and adding sensor mode.
+
+# WIDTH = 640
+# HEIGHT = 480
+
 WIDTH = 640
 HEIGHT = 480
+SENSOR_MODE = 4
 FRAMERATE = 24
 HTTP_PORT = 8082
 WS_PORT = 8084
@@ -136,7 +143,9 @@ def main():
         camera.framerate = FRAMERATE
         camera.vflip = VFLIP # flips image rightside up, as needed
         camera.hflip = HFLIP # flips image left-right, as needed
-        sleep(1) # camera warm-up time
+        camera.sensor_mode = SENSOR_MODE
+        # Rob changed sleep time from 1 to 30 seconds
+        sleep(30) # camera warm-up time
         print('Initializing websockets server on port %d' % WS_PORT)
         WebSocketWSGIHandler.http_version = '1.1'
         websocket_server = make_server(
